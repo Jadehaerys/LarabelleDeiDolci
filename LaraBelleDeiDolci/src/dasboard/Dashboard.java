@@ -23,17 +23,20 @@ public class Dashboard {
         mainPanel.setBackground(Color.decode("#FF91A4"));
         mainPanel.setLayout(null);
 
+    
+
         hr.setBounds(0, 100, 975, 10);
-        hr.setBackground(new Color(155, 155, 155));
+        hr.setBackground(Color.decode("#F7002B"));
 
         content.setBounds(75, 115, 900, 615);
-        content.setBackground(new Color(36, 37, 42));
+        content.setBackground(Color.decode("#FF2B50"));
         content.setLayout(null);
-        
+        JPanel logoPanel = CreateComponents.ImagePanel("Images\\Lorebelle-removebg-preview.png", 0, 250, 130, 250);
         content.add(storeName);
         content.add(PastryList.getPastries());
         content.add(LabelSZ.labels());
         content.add(PastryDetails.getPastriesDetails());
+        mainPanel.add(logoPanel);
         mainPanel.add(content);
         mainPanel.add(hr);
     }

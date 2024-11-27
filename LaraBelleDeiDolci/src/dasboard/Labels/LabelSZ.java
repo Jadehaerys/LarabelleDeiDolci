@@ -1,5 +1,8 @@
 package dasboard.Labels;
 import javax.swing.*;
+
+import CreateComponents.CreateComponents;
+
 import java.awt.*;
 
 public class LabelSZ {
@@ -19,6 +22,8 @@ public class LabelSZ {
         String NotAvailableText = "<html><div style='text-align: center;'><span style='color: #FF91A4; font-size: 14px;'>❤️</span>Ayn Bayot</div></html>";
         NotAvailable = createLabel(0,100,180,30,NotAvailableText);
         dashPanel.add(NotAvailable);
+
+        
 
         return dashPanel;
 

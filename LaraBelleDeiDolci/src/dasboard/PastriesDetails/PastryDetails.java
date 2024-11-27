@@ -68,7 +68,6 @@ public class PastryDetails {
         int selectedIndex = selectedPastriesList.getSelectedIndex();
         if (selectedIndex != -1) {
             String selected = selectedPastriesModel.get(selectedIndex);
-          
             double price = Double.parseDouble(selected.split(" - P")[1]);
             subtotal -= price;
             selectedPastriesModel.remove(selectedIndex);
@@ -80,17 +79,13 @@ public class PastryDetails {
     private static void checkout() {
         if (!selectedPastriesModel.isEmpty()) {
             JOptionPane.showMessageDialog(null, 
-                "Total: P" + subtotal + "\nThank you for your purchase!", 
-                "Checkout", 
-                JOptionPane.INFORMATION_MESSAGE);
+                "Total: P" + subtotal + "\nThank you for your purchase!","Checkout", JOptionPane.INFORMATION_MESSAGE);
             selectedPastriesModel.clear();
             subtotal = 0.0;
             updateSubtotal();
         } else {
             JOptionPane.showMessageDialog(null, 
-                "Your cart is empty!", 
-                "Checkout", 
-                JOptionPane.WARNING_MESSAGE);
+                "Your cart is empty!", "Checkout", JOptionPane.WARNING_MESSAGE);
         }
     }
 

@@ -1,6 +1,8 @@
 package dasboard.PastriesList;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+
 import dasboard.PastriesDetails.PastryDetails;
 import CreateComponents.CreateComponents;
 
@@ -60,14 +62,14 @@ public class PastryList {
 
          
             int index = i; 
-            pastryPanels[i].addActionListener(e -> {
-                if (statuses[index].equals("Available")) {
-                    PastryDetails.addPastry(names[index], prices[index]);
-                } else {
-                    JOptionPane.showMessageDialog(null, 
-                        names[index] + " is not available.", 
-                        "Unavailable", 
-                        JOptionPane.WARNING_MESSAGE);
+            pastryPanels[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (statuses[index].equals("Available")) {
+                        PastryDetails.addPastry(names[index], prices[index]);
+                    } else {
+                        JOptionPane.showMessageDialog(null,names[index] + " is not available.", "Unavailable",JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             });
 

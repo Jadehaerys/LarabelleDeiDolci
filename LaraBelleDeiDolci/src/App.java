@@ -9,12 +9,9 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800); 
         ImageIcon img = new ImageIcon("Images\\Lorebelle-removebg-preview.png");
-        frame.setIconImage(img.getImage());
-        
-        Dashboard dashboard = new Dashboard();
-        
+        frame.setIconImage(img.getImage());     
+        Dashboard dashboard = new Dashboard(); 
         frame.setContentPane(dashboard.getPanel());
-
         frame.setVisible(true);
 
 

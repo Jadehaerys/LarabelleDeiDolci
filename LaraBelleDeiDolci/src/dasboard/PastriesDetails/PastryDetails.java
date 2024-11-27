@@ -2,6 +2,7 @@ package dasboard.PastriesDetails;
 import CreateComponents.CreateComponents;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class PastryDetails {
@@ -38,7 +39,12 @@ public class PastryDetails {
         checkoutButton.setBorder(BorderFactory.createEmptyBorder());
         checkoutButton.setFocusPainted(false);
         checkoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        checkoutButton.addActionListener(e -> checkout());
+        checkoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkout();
+            }
+        });
         pastryPanel.add(checkoutButton);
 
        
@@ -50,7 +56,12 @@ public class PastryDetails {
         removeButton.setBorder(BorderFactory.createEmptyBorder());
         removeButton.setFocusPainted(false);
         removeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        removeButton.addActionListener(e -> removeSelected());
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeSelected();
+            }
+        });
         pastryPanel.add(removeButton);
 
         return pastryPanel;
@@ -84,8 +95,7 @@ public class PastryDetails {
             subtotal = 0.0;
             updateSubtotal();
         } else {
-            JOptionPane.showMessageDialog(null, 
-                "Your cart is empty!", "Checkout", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Your cart is empty!", "Checkout", JOptionPane.WARNING_MESSAGE);
         }
     }
 

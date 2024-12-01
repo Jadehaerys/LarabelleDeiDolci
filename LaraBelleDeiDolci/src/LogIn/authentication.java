@@ -5,7 +5,7 @@ public class authentication {
 
     public static boolean Authenticate(String username, String password){
 
-        if(username.equals("Larabelle") && password.equals("Lorebelle")){
+        if(username.equalsIgnoreCase("Larabelle") && password.equalsIgnoreCase("Lorebelle")){
             return true;
         }
         return false;

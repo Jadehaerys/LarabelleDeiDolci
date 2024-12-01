@@ -25,28 +25,22 @@ public class Login {
     private void initialize() {
         int defaultWidth = 1000;
         int defaultHeight = 800;
-
         mainContainer = new JPanel();
         authPanel = new JPanel();
         userInputPanel = new JPanel();
         passInputPanel = new JPanel();
         logoPanel = CreateComponents.ImagePanel("Images/BelleDeiDolciLogo.png", 355, 25, 250, 250);
-
         usernameField = new TextField();
         passwordField = new JPasswordField();
-
         loginButton = new JButton("Login");
-
         headerLabel = new JLabel("<html>" + "<h1 style=\"font-size:80px\">Belle" + "<span style=\"color:#FF2B50\"> Dei Dolci</span>" + "</h1>" + "</html>");
 
         mainContainer.setBackground(Color.decode("#FF91A4"));
         mainContainer.setBounds(0, 0, defaultWidth, defaultHeight);
         mainContainer.setLayout(null);
-
         authPanel.setBounds(0, 0, defaultWidth, defaultHeight);
         authPanel.setBackground(Color.decode("#FF91A4"));
         authPanel.setLayout(null);
-
         userInputPanel.setBounds(290, 400, 350, 30);
         userInputPanel.setLayout(null);
 
@@ -60,21 +54,16 @@ public class Login {
 
         passInputPanel.setBounds(290, 450, 350, 30);
         passInputPanel.setLayout(null);
-
         usernameField.setBounds(0, 0, 350, 30);
         usernameField.setFont(new Font(null, Font.PLAIN, 25));
-
         passwordField.setBounds(0, 0, 350, 30);
         passwordField.setFont(new Font(null, Font.PLAIN, 25));
-
         headerLabel.setForeground(new Color(255, 255, 255));
         headerLabel.setBounds(130, 250, 800, 150);
-
+        
         userInputPanel.add(usernameField);
         passInputPanel.add(passwordField);
-
         mainContainer.add(authPanel);
-
         authPanel.add(headerLabel);
         authPanel.add(userInputPanel);
         authPanel.add(passInputPanel);

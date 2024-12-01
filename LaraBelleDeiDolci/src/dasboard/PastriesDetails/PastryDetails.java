@@ -176,9 +176,7 @@ public class PastryDetails {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!itemQuantities.isEmpty()) {
-                JOptionPane.showMessageDialog(null,
-                        "Total: P" + subtotal + "\nThank you for your purchase!", "Checkout",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Total: P" + subtotal + "\nThank you for your purchase!", "Checkout",JOptionPane.INFORMATION_MESSAGE);
                 itemQuantities.clear();
                 itemPrices.clear();
                 updateList();

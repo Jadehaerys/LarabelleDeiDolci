@@ -8,7 +8,7 @@ public class App {
     JFrame frame = new JFrame("Belle Dei Dolci");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800); 
-        ImageIcon img = new ImageIcon("Images\\Lorebelle-removebg-preview.png");
+        ImageIcon img = new ImageIcon("Images\\BelleDeiDolciLogo.png");
         frame.setIconImage(img.getImage());     
         Dashboard dashboard = new Dashboard(); 
         frame.setContentPane(dashboard.getPanel());

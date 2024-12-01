@@ -28,7 +28,7 @@ public class Dashboard {
         content.setBounds(40, 115, 900, 615);
         content.setBackground(Color.decode("#FF2B50"));
         content.setLayout(null);
-        JPanel logoPanel = CreateComponents.ImagePanel("Images\\Pink Blue Cupcake Bakery Logo.png", 0, -5, 130, 115);
+        JPanel logoPanel = CreateComponents.ImagePanel("Images\\BelleDeiDolciLogo.png", 0, -5, 130, 115);
         content.add(storeName);
         heading.add(headline);
         content.add(PastryList.getPastries());

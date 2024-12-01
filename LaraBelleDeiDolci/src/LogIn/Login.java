@@ -23,8 +23,8 @@ public class Login {
     }
 
     private void initialize() {
-        int defaultWidth = 975;
-        int defaultHeight = 725;
+        int defaultWidth = 1000;
+        int defaultHeight = 800;
 
         mainContainer = new JPanel();
         authPanel = new JPanel();

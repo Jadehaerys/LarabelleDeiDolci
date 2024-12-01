@@ -5,7 +5,7 @@ import dasboard.Dashboard;
 
 public class App {
     public static void main(String[] args) {
-    JFrame frame = new JFrame("Larabelle Dei Dolci");
+    JFrame frame = new JFrame("Belle Dei Dolci");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800); 
         ImageIcon img = new ImageIcon("Images\\Lorebelle-removebg-preview.png");

@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import LogIn.Login;  /
+import LogIn.Login;  
 import dasboard.Dashboard;  
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String [] elton) {
         
         JFrame frame = new JFrame("Belle Dei Dolci");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

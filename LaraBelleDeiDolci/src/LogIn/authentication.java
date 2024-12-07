@@ -20,7 +20,7 @@ public class authentication {
                     String filePassword = credentials[1].trim();
 
                     
-                    if (username.equalsIgnoreCase(fileUsername) && password.equals(filePassword)) {
+                    if (username.equalsIgnoreCase(fileUsername) && password.equalsIgnoreCase(filePassword)) {
                         return true;  
                     }
                 }

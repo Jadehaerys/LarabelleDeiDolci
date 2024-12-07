@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.io.*;
 
 public class PastryDetails {
@@ -287,20 +288,33 @@ public class PastryDetails {
 
     private void saveReceiptToFile(String name, String address, String contact, String paymentMethod) {
         try {
-            // Create a file for saving the receipt (in the project directory or user's home directory)
             File receiptFile = new File("receipt.txt");
             BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile, true));
-
+    
+            String currentDate = java.time.LocalDate.now().toString();
+    
             writer.write("====================================\n");
             writer.write("Receipt\n");
             writer.write("====================================\n");
+            writer.write("Date: " + currentDate + "\n");
             writer.write("Name: " + name + "\n");
             writer.write("Address: " + address + "\n");
             writer.write("Contact: " + contact + "\n");
             writer.write("Payment Method: " + paymentMethod + "\n");
-            writer.write("Total: P" + subtotal + "\n");
+    
+            writer.write("\nItems Purchased:\n");
+            Object[] itemNames = itemQuantities.keySet().toArray();
+            for (int i = 0; i < itemNames.length; i++) {
+                String itemName = (String) itemNames[i];
+                int quantity = itemQuantities.get(itemName);
+                double itemPrice = itemPrices.get(itemName);
+                double totalItemPrice = itemPrice * quantity;
+                writer.write(itemName + " x" + quantity + " - P" + totalItemPrice + "\n");
+            }
+    
+            writer.write("\nTotal: P" + subtotal + "\n");
             writer.write("====================================\n\n");
-
+    
             writer.close();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving receipt: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
@@ -310,68 +324,99 @@ public class PastryDetails {
     private void showReceiptFrame(String name, String address, String contact, String paymentMethod) {
         JFrame receiptFrame = new JFrame("Receipt");
         receiptFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        receiptFrame.setSize(500, 400);
+        receiptFrame.setSize(500, 600);
         receiptFrame.setLayout(new BorderLayout(10, 10));
         ImageIcon receiptLogo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
         receiptFrame.setIconImage(receiptLogo.getImage());   
+    
         JPanel receiptPanel = new JPanel();
-        receiptPanel.setLayout(new BoxLayout(receiptPanel, BoxLayout.Y_AXIS));
+        receiptPanel.setLayout(new GridBagLayout());
         receiptPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         receiptPanel.setBackground(Color.decode("#FF91A4"));
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+    
         JLabel receiptHeader = new JLabel("Receipt", JLabel.CENTER);
         receiptHeader.setFont(new Font("Arial", Font.BOLD, 20));
         receiptHeader.setOpaque(true);
         receiptHeader.setBackground(Color.decode("#FF2B50"));
         receiptHeader.setForeground(Color.WHITE);
         receiptHeader.setPreferredSize(new Dimension(500, 50));
-
-        JLabel nameLabel = new JLabel("Name: " + name);
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        receiptPanel.add(receiptHeader, gbc);
+    
+        String currentDate = java.time.LocalDate.now().toString();
+        JLabel dateLabel = new JLabel("Date: " + currentDate, JLabel.CENTER);
+        dateLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridwidth = 1;
+        gbc.gridy = 1;
+        receiptPanel.add(dateLabel, gbc);
+        
+        JLabel nameLabel = new JLabel("Name: " + name, JLabel.CENTER);
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JLabel addressLabel = new JLabel("<html>Address: " + address.replace("\n", "<br>") + "</html>");
+        gbc.gridy = 2;
+        receiptPanel.add(nameLabel, gbc);
+    
+        JLabel addressLabel = new JLabel("<html>Address: " + address.replace("\n", "<br>") + "</html>", JLabel.CENTER);
         addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JLabel contactLabel = new JLabel("Contact Number: " + contact);
+        gbc.gridy = 3;
+        receiptPanel.add(addressLabel, gbc);
+    
+        JLabel contactLabel = new JLabel("Contact Number: " + contact, JLabel.CENTER);
         contactLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JLabel paymentLabel = new JLabel("Payment Method: " + paymentMethod);
+        gbc.gridy = 4;
+        receiptPanel.add(contactLabel, gbc);
+    
+        JLabel paymentLabel = new JLabel("Payment Method: " + paymentMethod, JLabel.CENTER);
         paymentLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JLabel totalLabel = new JLabel("Total: P" + subtotal);
+        gbc.gridy = 5;
+        receiptPanel.add(paymentLabel, gbc);
+    
+        JLabel itemsLabel = new JLabel("Items Purchased:", JLabel.CENTER);
+        itemsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 6;
+        receiptPanel.add(itemsLabel, gbc);
+    
+        Object[] itemNames = itemQuantities.keySet().toArray();
+        for (int i = 0; i < itemNames.length; i++) {
+            String itemName = (String) itemNames[i];
+            int quantity = itemQuantities.get(itemName);
+            double itemPrice = itemPrices.get(itemName);
+            double totalItemPrice = itemPrice * quantity;
+            JLabel itemLabel = new JLabel(itemName + " x" + quantity + " - P" + totalItemPrice, JLabel.CENTER);
+            itemLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            gbc.gridy++;
+            receiptPanel.add(itemLabel, gbc);
+        }
+    
+        JLabel totalLabel = new JLabel("Total: P" + subtotal, JLabel.CENTER);
         totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
-
+        gbc.gridy++;
+        receiptPanel.add(totalLabel, gbc);
+        
         JButton closeButton = new JButton("Close");
         closeButton.setBackground(Color.decode("#FF2B50"));
         closeButton.setForeground(Color.WHITE);
-
-        receiptPanel.add(receiptHeader);
-        receiptPanel.add(Box.createVerticalStrut(20));
-        receiptPanel.add(nameLabel);
-        receiptPanel.add(Box.createVerticalStrut(10));
-        receiptPanel.add(addressLabel);
-        receiptPanel.add(Box.createVerticalStrut(10));
-        receiptPanel.add(contactLabel);
-        receiptPanel.add(Box.createVerticalStrut(10));
-        receiptPanel.add(paymentLabel);
-        receiptPanel.add(Box.createVerticalStrut(20));
-        receiptPanel.add(totalLabel);
-        receiptPanel.add(Box.createVerticalStrut(20));
-        receiptPanel.add(closeButton);
-
+        gbc.gridy++;
+        receiptPanel.add(closeButton, gbc);
+    
         receiptFrame.add(receiptPanel, BorderLayout.CENTER);
         receiptFrame.setLocationRelativeTo(null);
         receiptFrame.setVisible(true);
-
-        closeButton.addActionListener(event -> receiptFrame.dispose());
-
+    
+        closeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                receiptFrame.dispose();
+            }
+        });
+    
         itemQuantities.clear();
         itemPrices.clear();
         updateList();
-    }
-}
-
-    
-    
+    }}
     
     
 

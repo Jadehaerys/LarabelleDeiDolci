@@ -1,30 +1,19 @@
+
+
 ====================================
 Receipt
 ====================================
-Name: Jade Mykle R. Ventic
+Date: 2024-12-07
+Name: Jade Mykel Ventic
 Address: Yati Liloan
-Contact: 094558551594
+Contact: 09458551594
 Payment Method: Cash
+
+Items Purchased:
+Ensaymada x1 - P100.0
+AuChocolat x2 - P400.0
+Éclair x1 - P150.0
+
 Total: P650.0
-====================================
-
-====================================
-Receipt
-====================================
-Name: Gay
-Address: fadf
-Contact: 09458551594
-Payment Method: Cash
-Total: P900.0
-====================================
-
-====================================
-Receipt
-====================================
-Name: Ayn Lorebelle E. Cavan
-Address: Abuno Pajac
-Contact: 09458551594
-Payment Method: Cash
-Total: P800.0
 ====================================
 

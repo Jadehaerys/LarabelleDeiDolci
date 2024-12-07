@@ -18,3 +18,13 @@ Payment Method: Cash
 Total: P900.0
 ====================================
 
+====================================
+Receipt
+====================================
+Name: Ayn Lorebelle E. Cavan
+Address: Abuno Pajac
+Contact: 09458551594
+Payment Method: Cash
+Total: P800.0
+====================================
+

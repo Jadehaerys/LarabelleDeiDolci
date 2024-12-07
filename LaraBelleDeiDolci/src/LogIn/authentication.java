@@ -7,7 +7,7 @@ import java.io.IOException;
 public class authentication {
 
     public static boolean Authenticate(String username, String password) {
-        String filePath = "userInformation.txt";  // Path to your credentials file
+        String filePath = "userInformation.txt"; 
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -19,16 +19,16 @@ public class authentication {
                     String fileUsername = credentials[0].trim();
                     String filePassword = credentials[1].trim();
 
-                    // Check if the provided username and password match
+                    
                     if (username.equalsIgnoreCase(fileUsername) && password.equals(filePassword)) {
-                        return true;  // Authentication successful
+                        return true;  
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();  // Prints error if there is a file issue
+            e.printStackTrace();  
         }
 
-        return false;  // Authentication failed
+        return false;  
     }
 }

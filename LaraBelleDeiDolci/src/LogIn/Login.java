@@ -1,11 +1,14 @@
 package LogIn;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import CreateComponents.CreateComponents;
 import dasboard.Dashboard;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class Login {
     private JPanel cardContainer, mainContainer, authPanel, userInputPanel, passInputPanel, logoPanel;
@@ -29,12 +32,12 @@ public class Login {
         authPanel = new JPanel();
         userInputPanel = new JPanel();
         passInputPanel = new JPanel();
-        logoPanel = CreateComponents.ImagePanel("Images/BelleDeiDolciLogo.png", 355, 25, 250, 250);
+        logoPanel = CreateComponents.ImagePanel("Images\\Logo-removebg-preview.png", 250, 0, 450, 400);
         usernameField = new TextField();
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
         headerLabel = new JLabel("<html>" + "<h1 style=\"font-size:80px\">Belle" + "<span style=\"color:#FF2B50\"> Dei Dolci</span>" + "</h1>" + "</html>");
-
+        headerLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 80));
         mainContainer.setBackground(Color.decode("#FF91A4"));
         mainContainer.setBounds(0, 0, defaultWidth, defaultHeight);
         mainContainer.setLayout(null);

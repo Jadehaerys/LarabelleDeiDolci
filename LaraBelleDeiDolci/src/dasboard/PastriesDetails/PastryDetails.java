@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
+import java.io.*;
 
 public class PastryDetails {
     private static JPanel pastryPanel = new JPanel();
@@ -172,19 +173,207 @@ public class PastryDetails {
         }
     }
 
-    private static class CheckoutListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!itemQuantities.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Total: P" + subtotal + "\nThank you for your purchase!", "Checkout",JOptionPane.INFORMATION_MESSAGE);
-                itemQuantities.clear();
-                itemPrices.clear();
-                updateList();
-            } else {
-                JOptionPane.showMessageDialog(null, "Your cart is empty!", "Checkout", JOptionPane.WARNING_MESSAGE);
-            }
+   private static class CheckoutListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (!itemQuantities.isEmpty()) {
+            JFrame checkoutFrame = new JFrame("Checkout");
+            checkoutFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            checkoutFrame.setSize(500, 400);
+            checkoutFrame.setLayout(new BorderLayout(10, 10));
+            checkoutFrame.setBackground(Color.decode("#FF91A4"));
+
+            JPanel formPanel = new JPanel();
+            formPanel.setLayout(new GridBagLayout());
+            formPanel.setBackground(Color.decode("#FF91A4"));
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.insets = new Insets(10, 10, 10, 10);
+
+            JLabel header = new JLabel("Checkout Details", JLabel.CENTER);
+            header.setFont(new Font("Arial", Font.BOLD, 20));
+            header.setOpaque(true);
+            header.setBackground(Color.decode("#FF2B50"));
+            header.setForeground(Color.WHITE);
+            header.setPreferredSize(new Dimension(500, 50));
+            checkoutFrame.add(header, BorderLayout.NORTH);
+
+            JLabel nameLabel = new JLabel("Name:");
+            JTextField nameField = new JTextField(20);
+            JLabel addressLabel = new JLabel("Address:");
+            JTextArea addressField = new JTextArea(3, 20);
+            addressField.setLineWrap(true);
+            addressField.setWrapStyleWord(true);
+            JScrollPane addressScrollPane = new JScrollPane(addressField);
+
+            JLabel contactLabel = new JLabel("Contact Number:");
+            JTextField contactField = new JTextField(15);
+
+            JLabel paymentLabel = new JLabel("Payment Method:");
+            JComboBox<String> paymentDropdown = new JComboBox<>(new String[]{"Cash", "Credit Card", "Debit Card", "Mobile Payment"});
+
+            JButton checkoutButton = new JButton("Submit & View Receipt");
+            checkoutButton.setBackground(Color.decode("#FF2B50"));
+            checkoutButton.setForeground(Color.WHITE);
+
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            formPanel.add(nameLabel, gbc);
+            gbc.gridx = 1;
+            formPanel.add(nameField, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            formPanel.add(addressLabel, gbc);
+            gbc.gridx = 1;
+            formPanel.add(addressScrollPane, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            formPanel.add(contactLabel, gbc);
+            gbc.gridx = 1;
+            formPanel.add(contactField, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            formPanel.add(paymentLabel, gbc);
+            gbc.gridx = 1;
+            formPanel.add(paymentDropdown, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.CENTER;
+            formPanel.add(checkoutButton, gbc);
+
+            checkoutFrame.add(formPanel, BorderLayout.CENTER);
+            checkoutFrame.setLocationRelativeTo(null);
+            checkoutFrame.setVisible(true);
+            checkoutFrame.setBackground(Color.decode("#FF91A4"));
+            ImageIcon checkoutLogo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
+            checkoutFrame.setIconImage(checkoutLogo.getImage());   
+            checkoutButton.addActionListener(event -> {
+                try {
+                    String name = nameField.getText().trim();
+                    String address = addressField.getText().trim();
+                    String contact = contactField.getText().trim();
+                    String paymentMethod = (String) paymentDropdown.getSelectedItem();
+            
+                    if (name.isEmpty() || address.isEmpty() || contact.isEmpty()) {
+                        throw new Exception("Please fill out all fields!");
+                    }
+            
+                    if (contact.length() != 11 || !contact.matches("\\d{11}")) {
+                        throw new Exception("Contact number must be 11 digits and contain only numbers.");
+                    }
+            
+                    checkoutFrame.dispose();
+                    saveReceiptToFile(name, address, contact, paymentMethod);
+                    showReceiptFrame(name, address, contact, paymentMethod);
+            
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(
+                            checkoutFrame,
+                            ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(null, "Your cart is empty!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    private void saveReceiptToFile(String name, String address, String contact, String paymentMethod) {
+        try {
+            // Create a file for saving the receipt (in the project directory or user's home directory)
+            File receiptFile = new File("receipt.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile, true));
+
+            writer.write("====================================\n");
+            writer.write("Receipt\n");
+            writer.write("====================================\n");
+            writer.write("Name: " + name + "\n");
+            writer.write("Address: " + address + "\n");
+            writer.write("Contact: " + contact + "\n");
+            writer.write("Payment Method: " + paymentMethod + "\n");
+            writer.write("Total: P" + subtotal + "\n");
+            writer.write("====================================\n\n");
+
+            writer.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving receipt: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void showReceiptFrame(String name, String address, String contact, String paymentMethod) {
+        JFrame receiptFrame = new JFrame("Receipt");
+        receiptFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        receiptFrame.setSize(500, 400);
+        receiptFrame.setLayout(new BorderLayout(10, 10));
+        ImageIcon receiptLogo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
+        receiptFrame.setIconImage(receiptLogo.getImage());   
+        JPanel receiptPanel = new JPanel();
+        receiptPanel.setLayout(new BoxLayout(receiptPanel, BoxLayout.Y_AXIS));
+        receiptPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        receiptPanel.setBackground(Color.decode("#FF91A4"));
+        JLabel receiptHeader = new JLabel("Receipt", JLabel.CENTER);
+        receiptHeader.setFont(new Font("Arial", Font.BOLD, 20));
+        receiptHeader.setOpaque(true);
+        receiptHeader.setBackground(Color.decode("#FF2B50"));
+        receiptHeader.setForeground(Color.WHITE);
+        receiptHeader.setPreferredSize(new Dimension(500, 50));
+
+        JLabel nameLabel = new JLabel("Name: " + name);
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JLabel addressLabel = new JLabel("<html>Address: " + address.replace("\n", "<br>") + "</html>");
+        addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JLabel contactLabel = new JLabel("Contact Number: " + contact);
+        contactLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JLabel paymentLabel = new JLabel("Payment Method: " + paymentMethod);
+        paymentLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JLabel totalLabel = new JLabel("Total: P" + subtotal);
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JButton closeButton = new JButton("Close");
+        closeButton.setBackground(Color.decode("#FF2B50"));
+        closeButton.setForeground(Color.WHITE);
+
+        receiptPanel.add(receiptHeader);
+        receiptPanel.add(Box.createVerticalStrut(20));
+        receiptPanel.add(nameLabel);
+        receiptPanel.add(Box.createVerticalStrut(10));
+        receiptPanel.add(addressLabel);
+        receiptPanel.add(Box.createVerticalStrut(10));
+        receiptPanel.add(contactLabel);
+        receiptPanel.add(Box.createVerticalStrut(10));
+        receiptPanel.add(paymentLabel);
+        receiptPanel.add(Box.createVerticalStrut(20));
+        receiptPanel.add(totalLabel);
+        receiptPanel.add(Box.createVerticalStrut(20));
+        receiptPanel.add(closeButton);
+
+        receiptFrame.add(receiptPanel, BorderLayout.CENTER);
+        receiptFrame.setLocationRelativeTo(null);
+        receiptFrame.setVisible(true);
+
+        closeButton.addActionListener(event -> receiptFrame.dispose());
+
+        itemQuantities.clear();
+        itemPrices.clear();
+        updateList();
+    }
+}
+
+    
+    
+    
+    
 
     private static class RemoveSelectedListener implements ActionListener {
         @Override

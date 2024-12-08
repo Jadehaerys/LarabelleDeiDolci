@@ -325,58 +325,59 @@ public class PastryDetails {
         JFrame receiptFrame = new JFrame("Receipt");
         receiptFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         receiptFrame.setSize(500, 600);
-        receiptFrame.setLayout(new BorderLayout(10, 10));
+        receiptFrame.setLayout(null);
         ImageIcon receiptLogo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
-        receiptFrame.setIconImage(receiptLogo.getImage());   
+        receiptFrame.setIconImage(receiptLogo.getImage());
+    
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 500, 700);
+        receiptFrame.add(layeredPane);
+    
+        JPanel receiptBackground = CreateComponents.ImagePanel("Images\\receit logo.jpg", 0, 0, 500, 600);
+        receiptBackground.setBounds(0, 0, 500, 600);
+        layeredPane.add(receiptBackground, JLayeredPane.DEFAULT_LAYER);
     
         JPanel receiptPanel = new JPanel();
         receiptPanel.setLayout(new GridBagLayout());
+        receiptPanel.setOpaque(false);
+        receiptPanel.setBounds(20, 10, 460, 600);
+        receiptPanel.setBackground(new Color(255, 145, 164, 200)); // Semi-transparent pink background for better readability
         receiptPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        receiptPanel.setBackground(Color.decode("#FF91A4"));
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        layeredPane.add(receiptPanel, JLayeredPane.PALETTE_LAYER);
     
-        JLabel receiptHeader = new JLabel("Receipt", JLabel.CENTER);
-        receiptHeader.setFont(new Font("Arial", Font.BOLD, 20));
-        receiptHeader.setOpaque(true);
-        receiptHeader.setBackground(Color.decode("#FF2B50"));
-        receiptHeader.setForeground(Color.WHITE);
-        receiptHeader.setPreferredSize(new Dimension(500, 50));
-        gbc.gridwidth = 2;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        receiptPanel.add(receiptHeader, gbc);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 10, 5, 10);
+    
     
         String currentDate = java.time.LocalDate.now().toString();
         JLabel dateLabel = new JLabel("Date: " + currentDate, JLabel.CENTER);
-        dateLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        dateLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridwidth = 1;
         gbc.gridy = 1;
         receiptPanel.add(dateLabel, gbc);
-        
+    
         JLabel nameLabel = new JLabel("Name: " + name, JLabel.CENTER);
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        nameLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridy = 2;
         receiptPanel.add(nameLabel, gbc);
     
         JLabel addressLabel = new JLabel("<html>Address: " + address.replace("\n", "<br>") + "</html>", JLabel.CENTER);
-        addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        addressLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridy = 3;
         receiptPanel.add(addressLabel, gbc);
     
         JLabel contactLabel = new JLabel("Contact Number: " + contact, JLabel.CENTER);
-        contactLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        contactLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridy = 4;
         receiptPanel.add(contactLabel, gbc);
     
         JLabel paymentLabel = new JLabel("Payment Method: " + paymentMethod, JLabel.CENTER);
-        paymentLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        paymentLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridy = 5;
         receiptPanel.add(paymentLabel, gbc);
     
         JLabel itemsLabel = new JLabel("Items Purchased:", JLabel.CENTER);
-        itemsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        itemsLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
         gbc.gridy = 6;
         receiptPanel.add(itemsLabel, gbc);
     
@@ -386,24 +387,23 @@ public class PastryDetails {
             int quantity = itemQuantities.get(itemName);
             double itemPrice = itemPrices.get(itemName);
             double totalItemPrice = itemPrice * quantity;
-            JLabel itemLabel = new JLabel(itemName + " x" + quantity + " - P" + totalItemPrice, JLabel.CENTER);
-            itemLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            JLabel itemLabel = new JLabel(itemName + " (" + quantity + ") - P" + totalItemPrice, JLabel.CENTER);
+            itemLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 14));
             gbc.gridy++;
             receiptPanel.add(itemLabel, gbc);
         }
     
         JLabel totalLabel = new JLabel("Total: P" + subtotal, JLabel.CENTER);
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        totalLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 16));
         gbc.gridy++;
         receiptPanel.add(totalLabel, gbc);
-        
+    
         JButton closeButton = new JButton("Close");
         closeButton.setBackground(Color.decode("#FF2B50"));
         closeButton.setForeground(Color.WHITE);
         gbc.gridy++;
         receiptPanel.add(closeButton, gbc);
     
-        receiptFrame.add(receiptPanel, BorderLayout.CENTER);
         receiptFrame.setLocationRelativeTo(null);
         receiptFrame.setVisible(true);
     
@@ -416,7 +416,8 @@ public class PastryDetails {
         itemQuantities.clear();
         itemPrices.clear();
         updateList();
-    }}
+    }
+   }    
     
     
 

@@ -6,30 +6,72 @@ import dasboard.Dashboard;
 import javax.swing.*;
 import java.awt.*;
 
-public class App extends JFrame {
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class App extends JFrame implements ActionListener {
+
+    JButton adminButton = new JButton("Admin");
+    JButton customerButton = new JButton("Customer");
+
+    CardLayout cardLayout = new CardLayout();
+    JPanel cardPanel = new JPanel(cardLayout);
 
     public App() {
-        setTitle("Belle Dei Dolci");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super("Main Menu");
         setSize(1000, 800);
-        ImageIcon img = new ImageIcon("Images\\BelleDeiDolciLogo.png");
-        setIconImage(img.getImage());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon logo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
+        setIconImage(logo.getImage());
+        JPanel mainMenuPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon background = new ImageIcon("Images\\Logo-removebg-preview.png");
+                g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        mainMenuPanel.setLayout(null);
+        mainMenuPanel.setBackground(Color.decode("#FF91A4"));
+        customerButton.setBounds(540, 550, 150, 50);
+        adminButton.setBounds(290, 550, 150, 50);
+        adminButton.setFocusPainted(false);
+        adminButton.setBackground(Color.decode("#FF2B50"));
+        adminButton.setForeground(Color.WHITE);
+        customerButton.setFocusPainted(false);
+        customerButton.setBackground(Color.decode("#FF2B50"));
+        customerButton.setForeground(Color.WHITE);
+        adminButton.addActionListener(this);
+        customerButton.addActionListener(this);
 
-        CardLayout cardLayout = new CardLayout();
-        JPanel cardPanel = new JPanel(cardLayout);
+        mainMenuPanel.add(adminButton);
+        mainMenuPanel.add(customerButton);
+
         Login loginPanel = new Login(cardLayout, cardPanel);
         Dashboard dashboard = new Dashboard();
 
+        cardPanel.add(mainMenuPanel, "MainMenu");
         cardPanel.add(loginPanel.getPanel(), "Login");
         cardPanel.add(dashboard.getPanel(), "Dashboard");
-        cardLayout.show(cardPanel, "Login");
 
         setContentPane(cardPanel);
-        setVisible(true);
+        cardLayout.show(cardPanel, "MainMenu");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == adminButton) {
+            cardLayout.show(cardPanel, "Login");
+        } else if (e.getSource() == customerButton) {
+            cardLayout.show(cardPanel, "Dashboard");
+        }
     }
 
     public static void main(String[] args) {
-        //SwingUtilities.invokeLater(() -> new App());
-        App a = new App();
+        SwingUtilities.invokeLater(() -> {
+            App app = new App();
+            app.setVisible(true);
+        });
     }
 }

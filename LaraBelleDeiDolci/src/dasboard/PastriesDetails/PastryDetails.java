@@ -399,8 +399,10 @@ public class PastryDetails {
         receiptPanel.add(totalLabel, gbc);
     
         JButton closeButton = new JButton("Close");
+        closeButton.setFocusPainted(false);
         closeButton.setBackground(Color.decode("#FF2B50"));
         closeButton.setForeground(Color.WHITE);
+       
         gbc.gridy++;
         receiptPanel.add(closeButton, gbc);
     

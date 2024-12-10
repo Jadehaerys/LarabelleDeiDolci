@@ -9,8 +9,8 @@ public class LabelSZ {
     public static JPanel labels(){
 
         JPanel dashPanel = new JPanel();
-        dashPanel.setBounds(35,400,400,200);
-        dashPanel.setBackground(Color.decode("#FF2B50"));
+        dashPanel.setBounds(35,400,500,200);
+        dashPanel.setBackground(Color.decode("#FF5E7A"));
         dashPanel.setLayout(null);
 
         JLabel Message1,Message2,Message3,Message4;

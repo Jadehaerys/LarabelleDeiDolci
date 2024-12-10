@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import LogIn.Login;  
-import dasboard.Dashboard;  
-
+import dasboard.*;
+import dasboard.AdminDasboard.*;
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -22,6 +21,7 @@ public class App extends JFrame implements ActionListener {
         super("Main Menu");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("BelleDeiDolci");
         ImageIcon logo = new ImageIcon("Images\\BelleDeiDolciLogo.png");
         setIconImage(logo.getImage());
         JPanel mainMenuPanel = new JPanel() {
@@ -33,7 +33,7 @@ public class App extends JFrame implements ActionListener {
             }
         };
         mainMenuPanel.setLayout(null);
-        mainMenuPanel.setBackground(Color.decode("#FF91A4"));
+        mainMenuPanel.setBackground(Color.decode("#FFF7F8"));
         customerButton.setBounds(540, 550, 150, 50);
         adminButton.setBounds(290, 550, 150, 50);
         adminButton.setFocusPainted(false);
@@ -49,12 +49,13 @@ public class App extends JFrame implements ActionListener {
         mainMenuPanel.add(customerButton);
 
         Login loginPanel = new Login(cardLayout, cardPanel);
-        Dashboard dashboard = new Dashboard();
+        Dashboard dashboard = new Dashboard(cardLayout, cardPanel);
+        Admin adminPanel = new Admin(cardLayout, cardPanel);
 
         cardPanel.add(mainMenuPanel, "MainMenu");
         cardPanel.add(loginPanel.getPanel(), "Login");
         cardPanel.add(dashboard.getPanel(), "Dashboard");
-
+        cardPanel.add(adminPanel, "Admin"); 
         setContentPane(cardPanel);
         cardLayout.show(cardPanel, "MainMenu");
     }

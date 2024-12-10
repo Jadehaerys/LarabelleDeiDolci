@@ -1,21 +1,21 @@
 package LogIn;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import CreateComponents.CreateComponents;
-import dasboard.Dashboard;
+import dasboard.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 
 public class Login {
     private JPanel cardContainer, mainContainer, authPanel, userInputPanel, passInputPanel, logoPanel;
     private JLabel headerLabel;
     private TextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton;
+    private JButton loginButton, returnButton;
     private CardLayout cardLayout;
     private boolean userAuthenticated = false;
 
@@ -36,6 +36,7 @@ public class Login {
         usernameField = new TextField();
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
+        returnButton = new JButton("Return");
         headerLabel = new JLabel("<html>" + "<h1 style=\"font-size:80px\">Belle" + "<span style=\"color:#FF2B50\"> Dei Dolci</span>" + "</h1>" + "</html>");
         headerLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 80));
         mainContainer.setBackground(Color.decode("#FF91A4"));
@@ -55,6 +56,14 @@ public class Login {
         loginButton.setFocusPainted(false);
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        returnButton.setBounds(415, 550, 100, 30);
+        returnButton.setForeground(new Color(255, 255, 255));
+        returnButton.setFont(new Font(null, Font.PLAIN, 20));
+        returnButton.setBackground(Color.decode("#FF2B50"));
+        returnButton.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        returnButton.setFocusPainted(false);
+        returnButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         passInputPanel.setBounds(290, 450, 350, 30);
         passInputPanel.setLayout(null);
         usernameField.setBounds(0, 0, 350, 30);
@@ -71,6 +80,7 @@ public class Login {
         authPanel.add(userInputPanel);
         authPanel.add(passInputPanel);
         authPanel.add(loginButton);
+        authPanel.add(returnButton);
         SwingUtilities.invokeLater(() -> mainContainer.getRootPane().setDefaultButton(loginButton));
         authPanel.add(logoPanel);
 
@@ -78,11 +88,18 @@ public class Login {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (authentication.Authenticate(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
-                    cardLayout.show(cardContainer, "Dashboard");
+                    cardLayout.show(cardContainer, "Admin");
                 } else {
                     JOptionPane.showMessageDialog(mainContainer, "ERROR! INVALID LOGIN", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardContainer, "MainMenu");
             }
         });
     }

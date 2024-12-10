@@ -6,11 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import CreateComponents.CreateComponents;
 import dasboard.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import common.UIComponent;
 
-public class Login {
+public class Login implements UIComponent {
     private JPanel cardContainer, mainContainer, authPanel, userInputPanel, passInputPanel, logoPanel;
     private JLabel headerLabel;
     private TextField usernameField;
@@ -25,7 +23,8 @@ public class Login {
         initialize();
     }
 
-    private void initialize() {
+    @Override
+    public void initialize() {
         int defaultWidth = 1000;
         int defaultHeight = 800;
         mainContainer = new JPanel();
@@ -104,11 +103,12 @@ public class Login {
         });
     }
 
-    public boolean AuthStatus() {
-        return userAuthenticated;
-    }
-
+    @Override
     public JPanel getPanel() {
         return mainContainer;
+    }
+
+    public boolean AuthStatus() {
+        return userAuthenticated;
     }
 }

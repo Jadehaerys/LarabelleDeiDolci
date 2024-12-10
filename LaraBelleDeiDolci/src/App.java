@@ -29,7 +29,7 @@ public class App extends JFrame implements ActionListener {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon background = new ImageIcon("Images\\Logo-removebg-preview.png");
+                ImageIcon background = new ImageIcon("Images\\Logo.jpg");
                 g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };

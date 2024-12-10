@@ -6,9 +6,9 @@ import CreateComponents.CreateComponents;
 import dasboard.Labels.LabelSZ;
 import dasboard.PastriesDetails.*;
 import dasboard.PastriesList.*;
+import common.UIComponent;
 
-
-public class Dashboard {
+public class Dashboard implements UIComponent {
     private JPanel mainPanel, heading, content;
     private JLabel storeName, headline;
     ImageIcon logoImage = new ImageIcon("Images/Logo-removebg-preview.png");
@@ -23,6 +23,7 @@ public class Dashboard {
         initialize();
     }
 
+    @Override
     public void initialize() {
         mainPanel = new JPanel();
         content = new JPanel();
@@ -53,10 +54,10 @@ public class Dashboard {
         content.add(storeName);
         heading.add(logoLabel);
         
-        // Ensure to call reload method here if needed
-        content.add(PastryList.getPastries()); // This will dynamically update the pastries list
+     
+        content.add(PastryList.getPastries()); 
         content.add(LabelSZ.labels());
-        content.add(PastryDetails.getPastriesDetails()); // Ensure that PastryDetails is properly managed
+        content.add(PastryDetails.getPastriesDetails()); 
         content.add(returnButton);
 
         mainPanel.add(logoPanel);
@@ -66,13 +67,14 @@ public class Dashboard {
         returnButton.addActionListener(e -> cardLayout.show(cardContainer, "MainMenu"));
     }
 
+    @Override
+    public JPanel getPanel() {
+        return mainPanel;
+    }
+
     public void reload() {
         PastryList.reloadPastries();
         mainPanel.revalidate();
         mainPanel.repaint();
-    }
-
-    public JPanel getPanel() {
-        return mainPanel;
     }
 }

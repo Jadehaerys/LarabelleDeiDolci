@@ -1,5 +1,5 @@
-Ensaymada,100.0,Not Available
-AuChocolat,200.0,Not Available
+Ensaymada,100.0,Available
+AuChocolat,200.0,Available
 Éclair,150.0,Available
-Croissant,300.0,Not Available
+Croissant,300.0,Available
 Baguette,250.0,Not Available

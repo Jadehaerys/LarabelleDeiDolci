@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import LogIn.Login;  
+import LogIn.Login;
 import dasboard.*;
 import dasboard.AdminDasboard.*;
 import javax.swing.*;
@@ -16,6 +16,7 @@ public class App extends JFrame implements ActionListener {
 
     CardLayout cardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(cardLayout);
+    Dashboard dashboard;
 
     public App() {
         super("Main Menu");
@@ -49,7 +50,7 @@ public class App extends JFrame implements ActionListener {
         mainMenuPanel.add(customerButton);
 
         Login loginPanel = new Login(cardLayout, cardPanel);
-        Dashboard dashboard = new Dashboard(cardLayout, cardPanel);
+        dashboard = new Dashboard(cardLayout, cardPanel); // Initialize the dashboard
         Admin adminPanel = new Admin(cardLayout, cardPanel);
 
         cardPanel.add(mainMenuPanel, "MainMenu");
@@ -65,6 +66,7 @@ public class App extends JFrame implements ActionListener {
         if (e.getSource() == adminButton) {
             cardLayout.show(cardPanel, "Login");
         } else if (e.getSource() == customerButton) {
+            dashboard.reload();
             cardLayout.show(cardPanel, "Dashboard");
         }
     }
@@ -76,3 +78,4 @@ public class App extends JFrame implements ActionListener {
         });
     }
 }
+

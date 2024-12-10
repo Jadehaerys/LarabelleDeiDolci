@@ -1,5 +1,4 @@
 package dasboard.AdminDasboard;
-
 import javax.swing.*;
 import CreateComponents.CreateComponents;
 import java.awt.*;
@@ -88,41 +87,51 @@ public class Admin extends JPanel {
         }
     }
 
+    private void refreshPastryList() {
+        listModel.clear();
+        pastries.clear();
+        loadPastries();
+    }
+    
     private void updatePastry() {
-        String name = nameField.getText();
+        String name = nameField.getText().trim();
         String status = (String) statusComboBox.getSelectedItem();
-
-        if (!name.isEmpty()) {
+    
+        if (!name.isEmpty() && status != null) {
             boolean updated = false;
             for (int i = 0; i < pastries.size(); i++) {
                 String[] parts = pastries.get(i).split(",");
                 if (parts[0].equalsIgnoreCase(name)) {
                     String updatedEntry = parts[0] + "," + parts[1] + "," + status;
                     pastries.set(i, updatedEntry);
-                    listModel.set(i, updatedEntry);
                     updated = true;
                     break;
                 }
             }
             if (updated) {
                 saveToFile();
-                JOptionPane.showMessageDialog(this, "Pastry availability updated successfully!");
+                refreshPastryList();
+                JOptionPane.showMessageDialog(this, "Pastry updated successfully!");
             } else {
                 JOptionPane.showMessageDialog(this, "Pastry not found.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please enter a pastry name.");
+            JOptionPane.showMessageDialog(this, "Please enter a pastry name and select a status.");
         }
     }
-
+    
     private void deletePastry() {
         int selectedIndex = pastryList.getSelectedIndex();
         if (selectedIndex != -1) {
             pastries.remove(selectedIndex);
-            listModel.remove(selectedIndex);
             saveToFile();
+            refreshPastryList();
+            JOptionPane.showMessageDialog(this, "Pastry deleted successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a pastry to delete.");
         }
     }
+    
 
     private void loadSelectedPastry() {
         int selectedIndex = pastryList.getSelectedIndex();

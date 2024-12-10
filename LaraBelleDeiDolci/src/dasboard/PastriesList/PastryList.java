@@ -10,16 +10,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class PastryList {
+    private static JPanel mainPanel;
+    private static List<String> names;
+    private static List<Double> prices;
+    private static List<String> statuses;
 
     public static JPanel getPastries() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(null);
-        mainPanel.setBounds(35, 75, 500, 400);
-        mainPanel.setBackground(Color.decode("#FF91A4"));
+        if (mainPanel == null) {
+            mainPanel = new JPanel();
+            mainPanel.setLayout(null);
+            mainPanel.setBounds(35, 75, 500, 400);
+            mainPanel.setBackground(Color.decode("#FF91A4"));
+        }
+        reloadPastries();
+        return mainPanel;
+    }
 
-        List<String> names = new ArrayList<>();
-        List<Double> prices = new ArrayList<>();
-        List<String> statuses = new ArrayList<>();
+    public static void reloadPastries() {
+        mainPanel.removeAll();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+        names = new ArrayList<>();
+        prices = new ArrayList<>();
+        statuses = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("pasties.txt"))) {
             String line;
@@ -34,13 +48,24 @@ public class PastryList {
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error reading pastries file", "Error", JOptionPane.ERROR_MESSAGE);
-            return mainPanel;
+            return;
         }
 
+        createPastryButtons();
+    }
+
+    private static void createPastryButtons() {
         JButton[] pastryPanels = new JButton[names.size()];
         JLabel[] pastryName = new JLabel[names.size()];
         JLabel[] pastryPrice = new JLabel[names.size()];
         JLabel[] pastryStatus = new JLabel[names.size()];
+
+        JPanel[] imagePanel = new JPanel[5];
+        imagePanel[0] = CreateComponents.ImagePanel("Images\\ensaymada.png", 21, 10, 45, 45);
+        imagePanel[1] = CreateComponents.ImagePanel("Images\\AuChocolat.jpg", 21, 10, 45, 45);
+        imagePanel[2] = CreateComponents.ImagePanel("Images\\Eclair.jpg", 21, 10, 45, 45);
+        imagePanel[3] = CreateComponents.ImagePanel("Images\\Croissant.jpg", 21, 10, 45, 45);
+        imagePanel[4] = CreateComponents.ImagePanel("Images\\baguette.jpg", 21, 10, 45, 45);
 
         for (int i = 0; i < names.size(); i++) {
             int panelHeight = 70;
@@ -62,21 +87,19 @@ public class PastryList {
             pastryPrice[i].setForeground(Color.decode("#A62122"));
 
             pastryStatus[i] = new JLabel();
-            String statusMsg;
-            if (statuses.get(i).equalsIgnoreCase("Available")) {
-                statusMsg = "<html><span style='color: #00FF00;'>Available</span></html>";
-            } else {
-                statusMsg = "<html><span style='color: red;'>Out of Stock</span></html>";
-            }
+            String statusMsg = statuses.get(i).equalsIgnoreCase("Available")
+                    ? "<html><span style='color: #00FF00;'>Available</span></html>"
+                    : "<html><span style='color: red;'>Out of Stock</span></html>";
             pastryStatus[i].setText(statusMsg);
             pastryStatus[i].setBounds(80, 40, 150, 20);
 
-            JPanel[] imagePanel = new JPanel[5];
-            imagePanel[0] = CreateComponents.ImagePanel("Images\\ensaymada.png", 21,10, 45,45);
-            imagePanel[1] = CreateComponents.ImagePanel("Images\\AuChocolat.jpg", 21,10, 45,45);
-            imagePanel[2] = CreateComponents.ImagePanel("Images\\Eclair.jpg", 21,10, 45,45);
-            imagePanel[3] = CreateComponents.ImagePanel("Images\\Croissant.jpg", 21,10, 45,45);
-            imagePanel[4] = CreateComponents.ImagePanel("Images\\baguette.jpg", 21,10, 45,45);
+            if (i < 5) {
+                pastryPanels[i].add(imagePanel[i]);
+            }
+
+            pastryPanels[i].add(pastryName[i]);
+            pastryPanels[i].add(pastryPrice[i]);
+            pastryPanels[i].add(pastryStatus[i]);
 
             int index = i;
             pastryPanels[i].addActionListener(new ActionListener() {
@@ -90,14 +113,7 @@ public class PastryList {
                 }
             });
 
-            pastryPanels[i].add(imagePanel[i]);
-            pastryPanels[i].add(pastryName[i]);
-            pastryPanels[i].add(pastryPrice[i]);
-            pastryPanels[i].add(pastryStatus[i]);
-
             mainPanel.add(pastryPanels[i]);
         }
-
-        return mainPanel;
     }
 }

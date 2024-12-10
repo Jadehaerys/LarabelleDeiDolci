@@ -7,6 +7,7 @@ import dasboard.Labels.LabelSZ;
 import dasboard.PastriesDetails.*;
 import dasboard.PastriesList.*;
 
+
 public class Dashboard {
     private JPanel mainPanel, heading, content;
     private JLabel storeName, headline;
@@ -51,9 +52,11 @@ public class Dashboard {
 
         content.add(storeName);
         heading.add(logoLabel);
-        content.add(PastryList.getPastries());
+        
+        // Ensure to call reload method here if needed
+        content.add(PastryList.getPastries()); // This will dynamically update the pastries list
         content.add(LabelSZ.labels());
-        content.add(PastryDetails.getPastriesDetails());
+        content.add(PastryDetails.getPastriesDetails()); // Ensure that PastryDetails is properly managed
         content.add(returnButton);
 
         mainPanel.add(logoPanel);
@@ -63,8 +66,13 @@ public class Dashboard {
         returnButton.addActionListener(e -> cardLayout.show(cardContainer, "MainMenu"));
     }
 
+    public void reload() {
+        PastryList.reloadPastries();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
     public JPanel getPanel() {
         return mainPanel;
     }
 }
-

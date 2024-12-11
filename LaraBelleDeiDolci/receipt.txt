@@ -1,16 +1,1 @@
-====================================
-Receipt
-====================================
-Date: 2024-12-08
-Name: Ayn Lorebelle E. Cavan
-Address: Abuno, Pajac
-Contact: 09458551594
-Payment Method: Cash
-
-Items Purchased:
-Ensaymada x1 - P100.0
-AuChocolat x1 - P200.0
-
-Total: P300.0
-====================================
 

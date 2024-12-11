@@ -83,17 +83,22 @@ public class Login implements UIComponent {
         SwingUtilities.invokeLater(() -> mainContainer.getRootPane().setDefaultButton(loginButton));
         authPanel.add(logoPanel);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (authentication.Authenticate(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
-                    cardLayout.show(cardContainer, "Admin");
-                } else {
-                    JOptionPane.showMessageDialog(mainContainer, "ERROR! INVALID LOGIN", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        FileAuthentication fileAuth = new FileAuthentication("userInformation.txt");
+
+loginButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String username = usernameField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        
+        if (fileAuth.authenticate(username, password)) {
+            cardLayout.show(cardContainer, "Admin");
+        } else {
+            JOptionPane.showMessageDialog(mainContainer, "ERROR! INVALID LOGIN", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
 
         returnButton.addActionListener(new ActionListener() {
             @Override

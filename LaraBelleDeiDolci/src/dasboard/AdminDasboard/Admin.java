@@ -20,9 +20,10 @@ public class Admin extends JPanel {
 
         JPanel logoPanel = CreateComponents.ImagePanel("Images\\hello sweetiePie.png", 0, 0, 1000, 800);
 
-        JLabel titleLabel = new JLabel("Edit Pastries", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        titleLabel.setBounds(350, 10, 300, 30);
+        JLabel titleLabel = new JLabel("Update Pastries", JLabel.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.ITALIC, 20));
+        titleLabel.setBackground(Color.decode("#FFC4CE"));
+        titleLabel.setBounds(350, 200, 300, 30);
         add(titleLabel);
 
         int contentWidth = 600;
@@ -31,31 +32,30 @@ public class Admin extends JPanel {
         int yPosition = (800 - contentHeight) / 2;
 
         JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(xPosition + 100, yPosition + 60, 100, 25);
+        nameLabel.setBounds(xPosition + 100, yPosition + 100, 100, 25);
         add(nameLabel);
 
         nameField = new JTextField();
-        nameField.setBounds(xPosition + 200, yPosition + 60, 200, 25);
+        nameField.setBounds(xPosition + 200, yPosition + 100, 200, 25);
         add(nameField);
 
         JLabel statusLabel = new JLabel("Status:");
-        statusLabel.setBounds(xPosition + 100, yPosition + 100, 100, 25);
+        statusLabel.setBounds(xPosition + 100, yPosition + 140, 100, 25);
         add(statusLabel);
 
         statusComboBox = new JComboBox<>(new String[]{"Available", "Not Available"});
-        statusComboBox.setBounds(xPosition + 200, yPosition + 100, 200, 25);
+        statusComboBox.setBounds(xPosition + 200, yPosition + 140, 200, 25);
         add(statusComboBox);
 
         JButton updateButton = new JButton("Update");
-        updateButton.setBounds(xPosition + 100, yPosition + 150, 100, 30);
+        updateButton.setBounds(xPosition + 100, yPosition + 250, 100, 30);
+        updateButton.setBackground(Color.decode("#FFC4CE"));
         add(updateButton);
 
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.setBounds(xPosition + 210, yPosition + 150, 100, 30);
-        add(deleteButton);
 
         JButton returnButton = new JButton("Return");
-        returnButton.setBounds(xPosition + 320, yPosition + 150, 100, 30);
+        returnButton.setBounds(xPosition + 320, yPosition + 250, 100, 30);
+        returnButton.setBackground(Color.decode("#FFC4CE"));
         add(returnButton);
 
         pastryList = new JList<>();
@@ -68,7 +68,6 @@ public class Admin extends JPanel {
         loadPastries();
 
         updateButton.addActionListener(e -> updatePastry());
-        deleteButton.addActionListener(e -> deletePastry());
         returnButton.addActionListener(e -> cardLayout.show(cardPanel, "MainMenu"));
 
         pastryList.addListSelectionListener(e -> loadSelectedPastry());
@@ -120,17 +119,7 @@ public class Admin extends JPanel {
         }
     }
     
-    private void deletePastry() {
-        int selectedIndex = pastryList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            pastries.remove(selectedIndex);
-            saveToFile();
-            refreshPastryList();
-            JOptionPane.showMessageDialog(this, "Pastry deleted successfully!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a pastry to delete.");
-        }
-    }
+    
     
 
     private void loadSelectedPastry() {

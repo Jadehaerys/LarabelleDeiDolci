@@ -1,1 +1,17 @@
 
+====================================
+Receipt
+====================================
+Date: 2024-12-11
+Name: Jade Mykel Ventic
+Address: Yati Liloan
+Contact: 09458551594
+Payment Method: Cash
+
+Items Purchased:
+AuChocolat x2 - P400.0
+Éclair x1 - P150.0
+
+Total: P550.0
+====================================
+

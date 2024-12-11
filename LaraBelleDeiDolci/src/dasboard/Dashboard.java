@@ -31,7 +31,7 @@ public class Dashboard implements UIComponent {
         storeName.setForeground(Color.BLACK);
         heading = new JPanel();
         heading.setLayout(null);
-        logoLabel.setBounds(270, 20, 500, 80);
+        logoLabel.setBounds(270, 0, 500, 80);
 
         returnButton = new JButton("Return");
         returnButton.setBounds(0, 590, 100, 30);
@@ -59,7 +59,7 @@ public class Dashboard implements UIComponent {
         content.add(LabelSZ.labels());
         content.add(PastryDetails.getPastriesDetails()); 
         content.add(returnButton);
-
+        
         mainPanel.add(logoPanel);
         mainPanel.add(content);
         mainPanel.add(heading);

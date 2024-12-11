@@ -15,3 +15,36 @@ AuChocolat x2 - P400.0
 Total: P550.0
 ====================================
 
+====================================
+Receipt
+====================================
+Date: 2024-12-11
+Name: Jade Mykel
+Address: Yati Liloan
+Contact: 09458551594
+Payment Method: Credit Card
+
+Items Purchased:
+Ensaymada x1 - P100.0
+Croissant x1 - P300.0
+AuChocolat x1 - P200.0
+Éclair x1 - P150.0
+
+Total: P750.0
+====================================
+
+====================================
+Receipt
+====================================
+Date: 2024-12-11
+Name: Jade Mykel Ventic
+Address: Yati Liloan
+Contact: 09458551594
+Payment Method: Cash
+
+Items Purchased:
+Éclair x2 - P300.0
+
+Total: P300.0
+====================================
+

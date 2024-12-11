@@ -11,7 +11,7 @@ import common.UIComponent;
 public class Dashboard implements UIComponent {
     private JPanel mainPanel, heading, content;
     private JLabel storeName, headline;
-    ImageIcon logoImage = new ImageIcon("Images/Logo-removebg-preview.png");
+    ImageIcon logoImage = new ImageIcon("Images\\Logo-removebg-preview.png");
     JLabel logoLabel = new JLabel(logoImage);
     private JButton returnButton;
     private CardLayout cardLayout;

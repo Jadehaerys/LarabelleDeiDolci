@@ -18,7 +18,7 @@ public class Admin extends JPanel {
         setLayout(null);
         setBackground(Color.decode("#FFF7F8"));
 
-        JPanel logoPanel = CreateComponents.ImagePanel("Images\\hello sweetiePie.jpg", 0, 0, 1000, 800);
+        JPanel logoPanel = CreateComponents.ImagePanel("Images\\hello sweetiePie.png", 0, 0, 1000, 800);
 
         JLabel titleLabel = new JLabel("Edit Pastries", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));

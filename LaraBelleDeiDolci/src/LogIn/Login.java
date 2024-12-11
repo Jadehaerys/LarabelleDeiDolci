@@ -25,13 +25,13 @@ public class Login implements UIComponent {
 
     @Override
     public void initialize() {
-        int defaultWidth = 1000;
+        int defaultWidth = 800;
         int defaultHeight = 800;
         mainContainer = new JPanel();
         authPanel = new JPanel();
         userInputPanel = new JPanel();
         passInputPanel = new JPanel();
-        logoPanel = CreateComponents.ImagePanel("Images\\Logo-removebg-preview.png", 250, 0, 450, 400);
+        logoPanel = CreateComponents.ImagePanel("Images\\Logo-removebg-preview.png", 220, -50, 500, 500);
         usernameField = new TextField();
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");

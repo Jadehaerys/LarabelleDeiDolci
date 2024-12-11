@@ -29,8 +29,8 @@ public class App extends JFrame implements ActionListener {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon background = new ImageIcon("Images\\Logo.jpg");
-                g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
+                ImageIcon background = new ImageIcon("Images\\Logo-removebg-preview.png");
+                g.drawImage(background.getImage(), 250, 100, 500, 500, this);
             }
         };
         mainMenuPanel.setLayout(null);
